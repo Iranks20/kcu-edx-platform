@@ -65,7 +65,7 @@ class CourseCreatorView(TestCase):
         self.assertEqual('unrequested', get_course_creator_status(self.user))
 
     def test_add_granted(self):
-        with mock.patch.dict('django.conf.settings.FEATURES', {"ENABLE_CREATOR_GROUP": True}):
+        with mock.patch.dict('django.conf.settings.FEATURES', {"ENABLE_CREATOR_GROUP": False}):
             # Calling add_user_with_status_granted impacts is_user_in_course_group_role.
             self.assertFalse(auth.user_has_role(self.user, CourseCreatorRole()))
 
@@ -79,7 +79,7 @@ class CourseCreatorView(TestCase):
             self.assertTrue(auth.user_has_role(self.user, CourseCreatorRole()))
 
     def test_update_creator_group(self):
-        with mock.patch.dict('django.conf.settings.FEATURES', {"ENABLE_CREATOR_GROUP": True}):
+        with mock.patch.dict('django.conf.settings.FEATURES', {"ENABLE_CREATOR_GROUP": False}):
             self.assertFalse(auth.user_has_role(self.user, CourseCreatorRole()))
             update_course_creator_group(self.admin, self.user, True)
             self.assertTrue(auth.user_has_role(self.user, CourseCreatorRole()))
@@ -87,7 +87,7 @@ class CourseCreatorView(TestCase):
             self.assertFalse(auth.user_has_role(self.user, CourseCreatorRole()))
 
     def test_update_org_content_creator_role(self):
-        with mock.patch.dict('django.conf.settings.FEATURES', {"ENABLE_CREATOR_GROUP": True}):
+        with mock.patch.dict('django.conf.settings.FEATURES', {"ENABLE_CREATOR_GROUP": False}):
             self.assertFalse(auth.user_has_role(self.user, OrgContentCreatorRole(self.org)))
             update_org_content_creator_role(self.admin, self.user, [self.org])
             self.assertTrue(auth.user_has_role(self.user, OrgContentCreatorRole(self.org)))

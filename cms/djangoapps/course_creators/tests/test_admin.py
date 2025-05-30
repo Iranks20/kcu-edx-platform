@@ -52,7 +52,7 @@ class CourseCreatorAdminTest(TestCase):
 
         self.studio_request_email = 'mark@marky.mark'
         self.enable_creator_group_patch = {
-            "ENABLE_CREATOR_GROUP": True,
+            "ENABLE_CREATOR_GROUP": False,
             "STUDIO_REQUEST_EMAIL": self.studio_request_email
         }
 

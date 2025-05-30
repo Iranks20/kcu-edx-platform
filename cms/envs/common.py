@@ -211,7 +211,7 @@ FEATURES = {
 
     # If set to True, new Studio users won't be able to author courses unless
     # an Open edX admin has added them to the course creator group.
-    'ENABLE_CREATOR_GROUP': True,
+    'ENABLE_CREATOR_GROUP': False,
 
     # If set to True, organization staff members can create libraries for their specific
     # organization and no other organizations. They do not need to be course creators,
@@ -219,7 +219,7 @@ FEATURES = {
     'ENABLE_ORGANIZATION_STAFF_ACCESS_FOR_CONTENT_LIBRARIES': True,
 
     # Turn off account locking if failed login attempts exceeds a limit
-    'ENABLE_MAX_FAILED_LOGIN_ATTEMPTS': False,
+    'ENABLE_MAX_FAILED_LOGIN_ATTEMPTS': True,
 
     # .. toggle_name: FEATURES['EDITABLE_SHORT_DESCRIPTION']
     # .. toggle_implementation: DjangoSetting

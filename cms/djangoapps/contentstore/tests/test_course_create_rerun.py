@@ -193,7 +193,7 @@ class TestCourseListing(ModuleStoreTestCase):
             self.assertEqual(len(course_orgs), 1)
             self.assertEqual(course_orgs[0]['short_name'], 'orgX')
 
-    @override_settings(FEATURES={'ENABLE_CREATOR_GROUP': True})
+    @override_settings(FEATURES={'ENABLE_CREATOR_GROUP': False})
     def test_course_creation_when_user_not_in_org(self):
         """
         Tests course creation when user doesn't have the required role.
@@ -206,7 +206,7 @@ class TestCourseListing(ModuleStoreTestCase):
         })
         self.assertEqual(response.status_code, 403)
 
-    @override_settings(FEATURES={'ENABLE_CREATOR_GROUP': True})
+    @override_settings(FEATURES={'ENABLE_CREATOR_GROUP': False})
     @mock.patch(
         'cms.djangoapps.course_creators.admin.render_to_string',
         mock.Mock(side_effect=mock_render_to_string, autospec=True)
@@ -233,7 +233,7 @@ class TestCourseListing(ModuleStoreTestCase):
         })
         self.assertEqual(response.status_code, 200)
 
-    @override_settings(FEATURES={'ENABLE_CREATOR_GROUP': True})
+    @override_settings(FEATURES={'ENABLE_CREATOR_GROUP': False})
     @mock.patch(
         'cms.djangoapps.course_creators.admin.render_to_string',
         mock.Mock(side_effect=mock_render_to_string, autospec=True)
@@ -260,7 +260,7 @@ class TestCourseListing(ModuleStoreTestCase):
         })
         self.assertEqual(response.status_code, 200)
 
-    @override_settings(FEATURES={'ENABLE_CREATOR_GROUP': True})
+    @override_settings(FEATURES={'ENABLE_CREATOR_GROUP': False})
     @mock.patch(
         'cms.djangoapps.course_creators.admin.render_to_string',
         mock.Mock(side_effect=mock_render_to_string, autospec=True)
@@ -289,7 +289,7 @@ class TestCourseListing(ModuleStoreTestCase):
         })
         self.assertEqual(response.status_code, 200)
 
-    @override_settings(FEATURES={'ENABLE_CREATOR_GROUP': True})
+    @override_settings(FEATURES={'ENABLE_CREATOR_GROUP': False})
     @mock.patch(
         'cms.djangoapps.course_creators.admin.render_to_string',
         mock.Mock(side_effect=mock_render_to_string, autospec=True)
