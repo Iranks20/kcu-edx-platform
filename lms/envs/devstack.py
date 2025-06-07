@@ -152,6 +152,9 @@ FEATURES['ENABLE_MAX_FAILED_LOGIN_ATTEMPTS'] = False
 FEATURES['SQUELCH_PII_IN_LOGS'] = False
 FEATURES['PREVENT_CONCURRENT_LOGINS'] = False
 
+# Disable email verification requirement
+FEATURES['SKIP_EMAIL_VALIDATION'] = True
+
 ########################### Milestones #################################
 FEATURES['MILESTONES_APP'] = True
 

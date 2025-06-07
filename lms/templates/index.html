@@ -4,67 +4,499 @@
 <%!
 from django.utils.translation import gettext as _
 from django.urls import reverse
-
 from openedx.core.djangolib.markup import HTML, Text
 %>
 
+<style>
+:root {
+  --kcu-primary: #015F2B;
+  --kcu-primary-light: #027a38;
+  --kcu-primary-dark: #014a22;
+  --kcu-secondary: #f8f9fa;
+  --kcu-accent: #FFD700;
+  --kcu-text: #2c3e50;
+  --kcu-text-light: #6c757d;
+  --kcu-white: #ffffff;
+  --kcu-shadow: rgba(0, 0, 0, 0.1);
+}
+
+.home {
+  background-color: var(--kcu-secondary);
+  font-family: 'Inter', 'Open Sans', sans-serif;
+  color: var(--kcu-text);
+}
+
+/* Hero Section */
+.kcu-header {
+  background: linear-gradient(135deg, var(--kcu-primary) 0%, var(--kcu-primary-dark) 100%);
+  color: var(--kcu-white);
+  padding: 6rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.kcu-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.1;
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.kcu-logo {
+  height: 80px;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  line-height: 1.2;
+  color: var(--kcu-white);
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.virtual-badge {
+  display: inline-block;
+  background: var(--kcu-accent);
+  color: var(--kcu-primary);
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Search Section */
+.course-search {
+  max-width: 700px;
+  margin: 2rem auto;
+  position: relative;
+}
+
+.search-input {
+  padding: 1.2rem 1.5rem;
+  border-radius: 50px;
+  border: none;
+  width: 100%;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+  padding-right: 60px;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.2);
+}
+
+.search-button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--kcu-accent);
+  color: var(--kcu-primary);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-button:hover {
+  background: #ffdf4d;
+  transform: translateY(-50%) scale(1.05);
+}
+
+/* Features Section */
+.features-section {
+  padding: 6rem 0;
+  background: var(--kcu-white);
+}
+
+.features-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.features-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -2rem;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.feature-card {
+  flex: 1;
+  min-width: 300px;
+  max-width: calc(33.333% - 2rem);
+  margin: 0;
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  height: 100%;
+  background: var(--kcu-white);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+.feature-icon {
+  font-size: 3.5rem;
+  color: var(--kcu-primary);
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-icon span {
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.1);
+  color: var(--kcu-primary-light);
+}
+
+.feature-card h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--kcu-primary);
+}
+
+.feature-card p {
+  font-size: 1.1rem;
+  color: var(--kcu-text-light);
+  line-height: 1.6;
+}
+
+@media (max-width: 1200px) {
+  .features-container {
+    padding: 0 2rem;
+  }
+  .features-row {
+    margin: 0 -1rem;
+    gap: 1.5rem;
+  }
+  .feature-card {
+    padding: 2.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .feature-card {
+    min-width: calc(50% - 1.5rem);
+    max-width: calc(50% - 1.5rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .features-container {
+    padding: 0 1.5rem;
+  }
+  .features-row {
+    margin: 0 -0.75rem;
+    gap: 1rem;
+  }
+  .feature-card {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .feature-card {
+    min-width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Courses Section */
+.courses-section {
+  padding: 6rem 0;
+  background-color: var(--kcu-secondary);
+}
+
+.courses-section .container {
+  max-width: 1800px;
+  padding: 0 2rem 0 1rem;
+  margin: 0;
+}
+
+.section-title {
+  color: var(--kcu-primary);
+  position: relative;
+  margin-bottom: 3rem;
+  font-weight: 800;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--kcu-accent);
+  border-radius: 2px;
+}
+
+.btn-kcu {
+  background: var(--kcu-primary);
+  color: var(--kcu-white);
+  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  border: none;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-kcu:hover {
+  background: var(--kcu-primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(1, 95, 43, 0.2);
+  color: var(--kcu-white);
+}
+
+/* Video Modal */
+.video-modal .inner-wrapper {
+  max-width: 1000px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .hero-subtitle {
+    font-size: 1.2rem;
+    padding: 0 1rem;
+  }
+  .virtual-badge {
+    font-size: 1rem;
+    padding: 0.4rem 1.2rem;
+  }
+  .search-input {
+    font-size: 1rem;
+    padding: 1rem 1.2rem;
+    padding-right: 50px;
+  }
+  .search-button {
+    width: 30px;
+    height: 30px;
+  }
+  .feature-card {
+    padding: 2rem;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  .kcu-header {
+    padding: 4rem 0;
+  }
+}
+
+@media (max-width: 1600px) {
+  .courses-section .container {
+    max-width: 1400px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .courses-section .container {
+    max-width: 1200px;
+    padding: 0 1.5rem 0 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .courses-section .container {
+    padding: 0 1rem 0 0.75rem;
+  }
+}
+</style>
+
 <main id="main" aria-label="Content" tabindex="-1">
-    <section class="home">
-      <header>
-        <div class="outer-wrapper">
-          <div class="title">
-            <div class="heading-group">
-              % if homepage_overlay_html:
-                ${homepage_overlay_html | n, decode.utf8}
-              % else:
-                <%include file="index_overlay.html" />
-              % endif
-            </div>
-            % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
-              <div class="course-search">
-                <form method="get" action="/courses">
-                  <label><span class="sr">${_("Search for a course")}</span>
-                    <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
-                  </label>
-                  <button class="search-button" type="submit">
-                    <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
-                  </button>
-                </form>
-              </div>
-            % endif
-
-          </div>
-
-          <%include file="index_promo_video.html" />
+  <!-- Hero Section -->
+  <section class="kcu-header text-center">
+    <div class="outer-wrapper header-content">
+      <div class="virtual-badge">Virtual University</div>
+      <h1 class="hero-title">Welcome to KCU IOT</h1>
+      <p class="hero-subtitle">Empowering future innovators through cutting-edge digital education and research excellence in our virtual learning environment</p>
+      
+      % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
+        <div class="course-search position-relative">
+          <form method="get" action="/courses">
+            <label><span class="sr">${_("Search for a course")}</span>
+              <input class="search-input" name="search_query" type="text" placeholder="${_("Search courses, programs, or resources...")}">
+            </label>
+            <button class="search-button" type="submit">
+              <span class="icon fa fa-search" aria-hidden="true"></span>
+              <span class="sr">${_("Search")}</span>
+            </button>
+          </form>
         </div>
+      % endif
+    </div>
+  </section>
 
-      </header>
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="features-container">
+      <h2 class="text-center section-title">Why Choose KCU IOT?</h2>
+      <div class="features-row">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <span>💻</span>
+          </div>
+          <h3>Industry-Ready Skills</h3>
+          <p>Master cutting-edge technologies and methodologies taught by industry experts and experienced academics.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <span>🎓</span>
+          </div>
+          <h3>Personalized Learning</h3>
+          <p>Experience adaptive learning paths designed to match your career goals and current skill level.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <span>🏆</span>
+          </div>
+          <h3>Global Recognition</h3>
+          <p>Earn internationally recognized certifications that open doors to global opportunities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses Section -->
+  <section class="courses-section">
+    <div class="container">
+      <h2 class="section-title">Featured Courses</h2>
       <%include file="${courses_list}" />
+      <div class="text-center mt-5">
+        <a href="/courses" class="btn btn-kcu btn-lg">Explore All Courses</a>
+      </div>
+    </div>
+  </section>
 
-    </section>
+  <!-- Promo Video -->
+  % if show_homepage_promo_video:
+    <%include file="index_promo_video.html" />
+  % endif
 </main>
 
 % if show_homepage_promo_video:
   <section id="video-modal" class="modal home-page-video-modal video-modal">
     <div class="inner-wrapper">
-      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+      <iframe title="KCU IOT Introduction" width="100%" height="500" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
     </div>
   </section>
 % endif
 
 <%block name="js_extra">
-   <script type="text/javascript">
-      $(window).load(function() {
-         if(getParameterByName('next')) {
-              $('#login').trigger("click");
-         }
-      })
-   </script>
+  <script type="text/javascript">
+    $(window).load(function() {
+      if(getParameterByName('next')) {
+        $('#login').trigger("click");
+      }
+    })
+    
+    // Smooth scrolling for anchor links
+    $('a[href*="#"]').on('click', function(e) {
+      e.preventDefault();
+      $('html, body').animate(
+        {
+          scrollTop: $($(this).attr('href')).offset().top,
+        },
+        500,
+        'linear'
+      );
+    });
+
+    // Add animation on scroll
+    $(window).scroll(function() {
+      $('.feature-card').each(function() {
+        var cardTop = $(this).offset().top;
+        var windowHeight = $(window).height();
+        var scrollTop = $(window).scrollTop();
+        
+        if (scrollTop > cardTop - windowHeight + 100) {
+          $(this).addClass('animate__animated animate__fadeInUp');
+        }
+      });
+    });
+  </script>
 </%block>
 
 % if show_signup_immediately is not UNDEFINED:
-  ## NOTE: This won't work in production, because anonymous views are cached, so it will
-  ## show either with or without this extra js for 3 minutes at a time.
 <script type="text/javascript">
   $(window).load(function() {$('#signup_action').trigger("click");});
 </script>
