@@ -12,8 +12,297 @@
 <%block name="title">${_("Welcome")}</%block>
 <%block name="bodyclass">not-signedin index view-howitworks</%block>
 
-<%block name="content">
+<style>
+/* Force styles to take precedence */
+body.view-howitworks {
+  --primary-color: #2e7d32 !important;
+  --primary-light: #4caf50 !important;
+  --primary-dark: #1b5e20 !important;
+  --text-on-primary: #ffffff !important;
+  --background-light: #f5f5f5 !important;
+  --text-color: #333333 !important;
+  --spacing-unit: 1rem !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  line-height: 1.6 !important;
+  color: var(--text-color) !important;
+}
 
+/* Header Section */
+body.view-howitworks .wrapper-content-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
+  padding: calc(var(--spacing-unit) * 4) 0 !important;
+  color: var(--text-on-primary) !important;
+  text-align: center !important;
+}
+
+body.view-howitworks .content-header {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 var(--spacing-unit) !important;
+}
+
+body.view-howitworks .content-header h1 {
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  margin-bottom: var(--spacing-unit) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  color: var(--text-on-primary) !important;
+}
+
+body.view-howitworks .content-header .tagline {
+  font-size: 1.25rem !important;
+  opacity: 0.9 !important;
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  color: var(--text-on-primary) !important;
+}
+
+/* Features Section */
+body.view-howitworks .wrapper-content-features {
+  background: var(--background-light) !important;
+  padding: calc(var(--spacing-unit) * 4) 0 !important;
+}
+
+body.view-howitworks .content-features {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 var(--spacing-unit) !important;
+}
+
+body.view-howitworks .list-features {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  gap: calc(var(--spacing-unit) * 2) !important;
+}
+
+body.view-howitworks .feature {
+  background: white !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  transition: transform 0.3s ease !important;
+}
+
+body.view-howitworks .feature:hover {
+  transform: translateY(-5px) !important;
+}
+
+body.view-howitworks .feature .img {
+  position: relative !important;
+  padding-top: 56.25% !important;
+  overflow: hidden !important;
+}
+
+body.view-howitworks .feature .img img {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.3s ease !important;
+}
+
+body.view-howitworks .feature:hover .img img {
+  transform: scale(1.05) !important;
+}
+
+body.view-howitworks .feature .action-zoom {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  background: rgba(0, 0, 0, 0.7) !important;
+  color: white !important;
+  padding: 0.75rem !important;
+  border-radius: 50% !important;
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+}
+
+body.view-howitworks .feature:hover .action-zoom {
+  opacity: 1 !important;
+}
+
+body.view-howitworks .feature .copy {
+  padding: calc(var(--spacing-unit) * 2) !important;
+}
+
+body.view-howitworks .feature h3 {
+  color: var(--primary-color) !important;
+  font-size: 1.5rem !important;
+  margin-bottom: var(--spacing-unit) !important;
+  font-weight: 600 !important;
+}
+
+body.view-howitworks .feature p {
+  color: var(--text-color) !important;
+  margin-bottom: calc(var(--spacing-unit) * 1.5) !important;
+}
+
+body.view-howitworks .list-proofpoints {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+body.view-howitworks .proofpoint {
+  margin-bottom: var(--spacing-unit) !important;
+}
+
+body.view-howitworks .proofpoint:last-child {
+  margin-bottom: 0 !important;
+}
+
+body.view-howitworks .proofpoint .title {
+  color: var(--primary-dark) !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* CTA Section */
+body.view-howitworks .wrapper-content-cta {
+  background: var(--primary-color) !important;
+  padding: calc(var(--spacing-unit) * 4) 0 !important;
+  color: var(--text-on-primary) !important;
+  text-align: center !important;
+}
+
+body.view-howitworks .content-cta {
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  padding: 0 var(--spacing-unit) !important;
+}
+
+body.view-howitworks .list-actions {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: calc(var(--spacing-unit) * 2) 0 0 !important;
+  display: flex !important;
+  gap: var(--spacing-unit) !important;
+  justify-content: center !important;
+}
+
+body.view-howitworks .action-item .action {
+  display: inline-block !important;
+  padding: 1rem 2rem !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+body.view-howitworks .action-primary {
+  background: white !important;
+  color: var(--primary-color) !important;
+}
+
+body.view-howitworks .action-primary:hover {
+  background: var(--background-light) !important;
+  transform: translateY(-2px) !important;
+}
+
+body.view-howitworks .action-secondary {
+  background: transparent !important;
+  color: white !important;
+  border: 2px solid white !important;
+}
+
+body.view-howitworks .action-secondary:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Modal Styles */
+body.view-howitworks .content-modal {
+  display: none !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  z-index: 1000 !important;
+  padding: var(--spacing-unit) !important;
+}
+
+body.view-howitworks .content-modal.active {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+body.view-howitworks .content-modal .inner-wrapper {
+  background: white !important;
+  max-width: 800px !important;
+  width: 100% !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+body.view-howitworks .content-modal .title {
+  padding: var(--spacing-unit) !important;
+  margin: 0 !important;
+  background: var(--primary-color) !important;
+  color: white !important;
+  font-size: 1.5rem !important;
+}
+
+body.view-howitworks .content-modal figure {
+  margin: 0 !important;
+  padding: var(--spacing-unit) !important;
+}
+
+body.view-howitworks .content-modal img {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 8px !important;
+}
+
+body.view-howitworks .content-modal .description {
+  padding: var(--spacing-unit) !important;
+  margin: 0 !important;
+  color: var(--text-color) !important;
+}
+
+body.view-howitworks .action-modal-close {
+  position: absolute !important;
+  top: var(--spacing-unit) !important;
+  right: var(--spacing-unit) !important;
+  color: white !important;
+  text-decoration: none !important;
+  font-size: 1.5rem !important;
+  transition: transform 0.3s ease !important;
+}
+
+body.view-howitworks .action-modal-close:hover {
+  transform: scale(1.1) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body.view-howitworks .list-actions {
+    flex-direction: column !important;
+  }
+  
+  body.view-howitworks .content-header h1 {
+    font-size: 2rem !important;
+  }
+  
+  body.view-howitworks .feature {
+    max-width: 500px !important;
+    margin: 0 auto !important;
+  }
+}
+</style>
+
+<%block name="content">
 <div class="wrapper-content-header wrapper">
   <section class="content content-header">
     <header>
@@ -46,7 +335,7 @@
         </figure>
 
         <div class="copy">
-          <h3>${_("Keeping Your Course Organized")}</h3>
+          <h3>${_("Keeping Your Course Organized Today")}</h3>
           <p>${Text(_("The backbone of your course is how it is organized. {studio_name} offers an {strong_start}Outline{strong_end} editor, providing a simple hierarchy and easy drag and drop to help you and your students stay organized.")).format(
                   studio_name=settings.STUDIO_SHORT_NAME,
                   strong_start=HTML('<strong>'),
@@ -81,18 +370,18 @@
 
       <li class="feature">
         <figure class="img zoom">
-        <a rel="modal" href="#hiw-feature2">
-          <img src="${static.url("images/thumb-hiw-feature2.png")}" alt="${_('Learning is More than Just Lectures')}" />
-          <figcaption class="sr">${_("Learning is More than Just Lectures")}</figcaption>
-          <span class="action-zoom">
-            <span class="icon fa fa-search-plus" aria-hidden="true"></span><span class="sr">${_("Enlarge image")}</span>
-          </span>
-        </a>
+          <a rel="modal" href="#hiw-feature2">
+            <img src="${static.url("images/thumb-hiw-feature2.png")}" alt="${_('Learning is More than Just Lectures')}" />
+            <figcaption class="sr">${_("Learning is More than Just Lectures")}</figcaption>
+            <span class="action-zoom">
+              <span class="icon fa fa-search-plus" aria-hidden="true"></span><span class="sr">${_("Enlarge image")}</span>
+            </span>
+          </a>
         </figure>
 
         <div class="copy">
           <h3>${_("Learning is More than Just Lectures")}</h3>
-          <p>${_("{studio_name} lets you weave your content together in a way that reinforces learning. Insert videos, discussions, and a wide variety of exercises with just a few clicks.").format(studio_name=settings.STUDIO_SHORT_NAME)} </p>
+          <p>${_("{studio_name} lets you weave your content together in a way that reinforces learning. Insert videos, discussions, and a wide variety of exercises with just a few clicks.").format(studio_name=settings.STUDIO_SHORT_NAME)}</p>
 
           <ul class="list-proofpoints">
             <li class="proofpoint">
@@ -174,41 +463,82 @@
 % endif
 
 <div class="content-modal" id="hiw-feature1">
-  <h3 class="title">${_("Outlining Your Course")}</h3>
-  <figure>
-    <img src="${static.url("images/hiw-feature1.png")}" alt="" />
-    <figcaption class="description">${_("Simple two-level outline to organize your course. Drag and drop, and see your course at a glance.")}</figcaption>
-  </figure>
-
-  <a href="" rel="view" class="action action-modal-close">
-    <span class="icon fa fa-times-circle" aria-hidden="true"></span>
-    <span class="label">${_("close modal")}</span>
-  </a>
+  <div class="inner-wrapper">
+    <h3 class="title">${_("Outlining Your Course")}</h3>
+    <figure>
+      <img src="${static.url("images/hiw-feature1.png")}" alt="" />
+      <figcaption class="description">${_("Simple two-level outline to organize your course. Drag and drop, and see your course at a glance.")}</figcaption>
+    </figure>
+    <a href="" rel="view" class="action-modal-close">
+      <span class="icon fa fa-times-circle" aria-hidden="true"></span>
+      <span class="sr">${_("close modal")}</span>
+    </a>
+  </div>
 </div>
 
 <div class="content-modal" id="hiw-feature2">
-  <h3 class="title">${_("More than Just Lectures")}</h3>
-  <figure>
-    <img src="${static.url("images/hiw-feature2.png")}" alt="" />
-    <figcaption class="description">${_("Quickly create videos, text snippets, inline discussions, and a variety of problem types.")}</figcaption>
-  </figure>
-
-  <a href="" rel="view" class="action action-modal-close">
-    <span class="icon fa fa-times-circle" aria-hidden="true"></span>
-    <span class="label">${_("close modal")}</span>
-  </a>
+  <div class="inner-wrapper">
+    <h3 class="title">${_("More than Just Lectures")}</h3>
+    <figure>
+      <img src="${static.url("images/hiw-feature2.png")}" alt="" />
+      <figcaption class="description">${_("Quickly create videos, text snippets, inline discussions, and a variety of problem types.")}</figcaption>
+    </figure>
+    <a href="" rel="view" class="action-modal-close">
+      <span class="icon fa fa-times-circle" aria-hidden="true"></span>
+      <span class="sr">${_("close modal")}</span>
+    </a>
+  </div>
 </div>
 
 <div class="content-modal" id="hiw-feature3">
-  <h3 class="title">${_("Publishing on Date")}</h3>
-  <figure>
-    <img src="${static.url("images/hiw-feature3.png")}" alt="" />
-    <figcaption class="description">${_("Simply set the date of a section or subsection, and {studio_name} will publish it to your students for you.").format(studio_name=settings.STUDIO_SHORT_NAME)}</figcaption>
-  </figure>
-
-  <a href="" rel="view" class="action action-modal-close">
-    <span class="icon fa fa-times-circle" aria-hidden="true"></span>
-    <span class="label">${_("close modal")}</span>
-  </a>
+  <div class="inner-wrapper">
+    <h3 class="title">${_("Publishing on Date")}</h3>
+    <figure>
+      <img src="${static.url("images/hiw-feature3.png")}" alt="" />
+      <figcaption class="description">${_("Simply set the date of a section or subsection, and {studio_name} will publish it to your students for you.").format(studio_name=settings.STUDIO_SHORT_NAME)}</figcaption>
+    </figure>
+    <a href="" rel="view" class="action-modal-close">
+      <span class="icon fa fa-times-circle" aria-hidden="true"></span>
+      <span class="sr">${_("close modal")}</span>
+    </a>
+  </div>
 </div>
 </%block>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Modal functionality
+  const modalLinks = document.querySelectorAll('a[rel="modal"]');
+  const modals = document.querySelectorAll('.content-modal');
+  const closeButtons = document.querySelectorAll('.action-modal-close');
+
+  modalLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const modal = document.querySelector(targetId);
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  closeButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      const modal = this.closest('.content-modal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Close modal when clicking outside
+  modals.forEach(modal => {
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+});
+</script>

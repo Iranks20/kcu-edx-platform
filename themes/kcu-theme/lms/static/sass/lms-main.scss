@@ -1,0 +1,13 @@
+// KCU Virtual University Theme - Main SCSS File
+
+// Import variables first
+@import "partials/lms/theme/variables";
+
+// Import theme components
+@import "partials/lms/theme/index";
+@import "partials/lms/theme/course";
+@import "partials/lms/theme/header";
+@import "partials/lms/theme/footer";
+
+// Import base Open edX styles
+@import "lms/static/sass/lms-main-v1"; 
